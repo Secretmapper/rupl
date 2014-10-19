@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<style type="text/css" media="screen">
+body {
+  max-height: 100vh;
+  margin:0px;
+}
+    .editor {
+      margin:0px;
+        position: default;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 50vh;
+        width:100%;
+    }
+#my-video {
+  background-color: #eee;
+  max-width:100%;
+  max-height:100%;
+
+}
+
+#their-video {
+max-width:100%;
+max-height:100%;
+  background-color: #eee;
+}
+
+#video-container {
+  text-align: center;
+}
+
+#step1-error, #step2, #step3 {
+  display: none;
+}
+#my-id {
+  font-weight: bold;
+}
+
+
+</style>
+<script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+<body>
+  <div style="height:100vh">
+<div class="pure-g">
+    <div class="pure-u-1-2">
+      <div style="position:default">
+      <div style="position:relative;height:50vh">
+  <div id="editor" class="editor">def foo():
+    x = 5
+    return x
+print foo()</div>
+      <button class="pure-button pure-button-primary" style="position:absolute;z-index:99999;right:0px;bottom:0px; opacity:50%;
+   background-color: rgba(255, 153, 36, 0.5); "
+        onclick="submitCode()">Run Code (Cmd+s/⌘+s)</button>
+      </div>
+      </div>
+      <div id="editor2" class="editor"></div>
+    </div>
+    <div class="pure-u-1-2">
+        <!-- Video area -->
+          <div class="pure-g">
+            <div class="pure-u-1-2">
+              <video id="their-video" autoplay></video>
+            </div>
+            <div class="pure-u-1-2">
+              <video id="my-video" muted="true" autoplay></video>
+            </div>
+          </div>
+        <div></div>
+        <!-- Steps -->
+        <div>
+
+          <!-- Get local audio/video stream -->
+          <div id="step1">
+            <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>
+            <div id="step1-error">
+              <p>Failed to access the webcam and microphone. Make sure to run this demo on an http server and click allow when asked for permission by the browser.</p>
+              <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>
+            </div>
+          </div>
+
+          <!-- Make calls to others -->
+          <div id="step2">
+            <p>Your id: <span id="my-id">...</span></p>
+            <p>Share this id with others so they can call you.</p>
+            <h3>Make a call</h3>
+            <div class="pure-form">
+              <input type="text" placeholder="Call user id..." id="callto-id">
+              <a href="#" class="pure-button pure-button-success" id="make-call">Call</a>
+            </div>
+          </div>
+
+          <!-- Call in progress -->
+          <div id="step3">
+            <p>
+              Currently in call with <span id="their-id">...</span>
+              <a href="#" class="pure-button pure-button-error" id="end-call">End call</a>
+            </p>
+            <div id="chatbox" class="scrollbit" style="overflow:auto;height:48vh">
+            </div>
+            <form id="send" class="pure pure-form">
+              <textarea class="" id="chat" placeholder="Enter message"></textarea><input class="pure-button pure-button-primary" type="submit" value="Send to selected peers">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="/js/ace.js" type="text/javascript" charset="utf-8"></script>
