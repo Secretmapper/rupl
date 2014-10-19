@@ -262,7 +262,7 @@ function keysReleased(e) {
 }
 
     var editor2 = ace.edit("editor2");
-    editor2.setTheme("ace/theme/monokai");
+    editor2.setTheme("ace/theme/terminal");
     editor2.getSession().setMode("ace/mode/python");
     editor2.setReadOnly(true);
 
